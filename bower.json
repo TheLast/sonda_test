@@ -1,0 +1,23 @@
+{
+  "name": "Michal_test",
+  "version": "0.0.0",
+  "description": "Michal test",
+  "keywords": [
+    "polymer"
+  ],
+  "authors": [
+    "Michal Y"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5",
+    "core-ajax": "Polymer/core-ajax#^0.5"
+  }
+}

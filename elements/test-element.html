@@ -1,0 +1,37 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel='import' href='../bower_components/core-input/core-input.html'>
+
+<polymer-element name="test-element">
+  <template>
+  <paper-shadow z='1'>
+	    <span>Hello <b>{{name}}</b>. This is my TEST SHADOW DOM.</span>
+
+	    <p>
+	    	test1
+	    	<input value="{{name}}" autofocus id='login' is='core-input' name='username' on-focus='' placeholder="Enter name...">
+	    </p>
+        <p>
+        	test2
+        	<input id='password' is='core-input' name='password' on-focus='' type='password'>
+        </p>
+	    
+	  
+	    <!-- to retrieve actual data, replace example.com with a real URL -->
+	    <!-- <core-ajax url="http://example.com/json" auto response="{{resp}}"></core-ajax>
+	    <textarea value="{{resp}}"></textarea> -->
+	</paper-shadow>    
+  </template>
+  <script>
+    Polymer({
+    	name: 'Stranger',
+		nameChanged: function() {
+        if (this.name) {
+          // Ensure name is capitalized
+          this.name = this.name[0].toUpperCase() +
+                      this.name.slice(1);
+        }
+      }     
+    });
+  </script>
+</polymer-element>
