@@ -2,13 +2,16 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel='import' href='../bower_components/core-input/core-input.html'>
 <link rel='import' href='../bower_components/paper-shadow/paper-shadow.html'>
-
+<link rel='import' href='../bower_components/paper-button/paper-button.html'>
 
 <polymer-element name="test-element">
   <template>
   <paper-shadow z='5'>
+  	<div class="container" center layout vertical>
 	    <span>Hello <b>{{name}}</b>. This is my TEST SHADOW DOM.</span>
-
+		<figure>
+			<img src="../images/sonda_logo.png" />
+		</figure>
 	    <p>
 	    	test1
 	    	<input value="{{name}}" autofocus id='login' is='core-input' name='username' on-focus='' placeholder="Enter name...">
@@ -17,12 +20,18 @@
         	test2
         	<input id='password' is='core-input' name='password' on-focus='' type='password'>
         </p>
-	    
+	    <paper-button class='color-main' id='submit' on-tap='{{submitForm}}' raised>
+          Sign In
+        </paper-button>
+        <p>
+        	<a href="#">Forgot password?</a>
+        </p>
 	  
 	    <!-- to retrieve actual data, replace example.com with a real URL -->
 	    <!-- <core-ajax url="http://example.com/json" auto response="{{resp}}"></core-ajax>
 	    <textarea value="{{resp}}"></textarea> -->
-	</paper-shadow>    
+	</div>   
+   </paper-shadow>    
   </template>
   <script>
     Polymer({
