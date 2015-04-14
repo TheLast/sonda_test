@@ -8,25 +8,34 @@
   <template>
   <paper-shadow z='5'>
   	<div class="container" center layout vertical>
+  		<core-ajax url="http://localhost:8000/check.json" auto response="{{resp}}"></core-ajax>
+	    <p><b>Desired username: </b>{{resp.username}}</p>
+	    <p><b>Desired passord: </b>{{resp.password}}</p>
 	    <span>Hello <b>{{name}}</b>. This is my TEST SHADOW DOM.</span>
 		<figure>
 			<img src="../images/sonda_logo.png" />
 		</figure>
-	    <p>
-	    	test1
-	    	<input value="{{name}}" autofocus id='login' is='core-input' name='username' on-focus='' placeholder="Enter name...">
-	    </p>
-        <p>
-        	test2
-        	<input id='password' is='core-input' name='password' on-focus='' type='password'>
+		<p>
+          Enter your password to get started
         </p>
-	    <paper-button class='color-main' id='submit' on-tap='{{submitForm}}' raised>
-          Sign In
-        </paper-button>
-        <p>
-        	<a href="#">Forgot password?</a>
-        </p>
-	  
+		<form action='/start' id='login_form' method='post' name='login_form'>
+			<input hidden id='redirect_url' name='redirect_url'>
+	    	<p>
+		    	test1
+		    	<input value="{{name}}" autofocus id='login' is='core-input' name='username' on-focus='' placeholder="Enter name...">
+		    </p>
+	        <p>
+	        	test2
+	        	<input id='password' is='core-input' name='password' on-focus='' type='password'>
+	        </p>
+	    </form>    
+		    <paper-button class='color-main' id='submit' on-tap='{{submitForm}}' raised>
+	          Sign In
+	        </paper-button>
+	        <p>
+	        	<a href="#">Forgot password?</a>
+	        </p>
+  			  
 	    <!-- to retrieve actual data, replace example.com with a real URL -->
 	    <!-- <core-ajax url="http://example.com/json" auto response="{{resp}}"></core-ajax>
 	    <textarea value="{{resp}}"></textarea> -->
@@ -43,6 +52,33 @@
                       this.name.slice(1);
         }
       }     
+    });
+  </script>
+  <script>
+    Polymer('login-form', {
+      submitForm: function() {
+        var loginVal = this.$.login.value;
+        var passwordVal = this.$.password.value;
+        if ( loginVal == "" || passwordVal == "") {
+          this.$.password.value = "";
+          this.$.password.invalid = true;
+        } else {
+          this.$.getsession.params = '{"login":"' + loginVal + '", "password":"' + passwordVal + '"}';
+          this.$.getsession.go();
+        }
+      },
+      handleResponse: function(event, result) {
+        if(result.response.code == 0){
+          this.$.redirect_url.value = result.response.body.redirect_url;
+          this.$.login_form.submit();
+        } else {
+          this.$.password.value = "";
+          this.$.password.invalid = true;
+        }
+      },
+      clearError: function() {
+        this.$.password.invalid = false;
+      }
     });
   </script>
 </polymer-element>
